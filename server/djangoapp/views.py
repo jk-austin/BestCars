@@ -34,10 +34,18 @@ def login_user(request):
     return JsonResponse(data)
 
 # Create a `logout_request` view to handle sign out request
+@csrf_exempt
 def logout_request(request):
-    logout(request) # Terminate user session
-    data = {"userName":""} # Return empty username
-    return JsonResponse(data)
+    print(f"LOGOUT CALLED - User before logout: {request.user}")
+    print(f"Session key before: {request.session.session_key}")
+    logout(request)
+    print(f"User after logout: {request.user}")
+    print(f"Session key after: {request.session.session_key}")
+    
+    data = {"userName":""}
+    response = JsonResponse(data)
+    response.delete_cookie('sessionid')  # Explicitly delete the session cookie
+    return response
 
 # Create a `registration` view to handle sign up request
 # @csrf_exempt

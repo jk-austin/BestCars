@@ -7,24 +7,38 @@
 <script>
 
 const logout = async (e) => {
-    // Build logout URL and Make GET request to logout endpoint
     let logout_url = window.location.origin+"/djangoapp/logout";
-    const res = await fetch(logout_url, {
-        method: "GET",
-    });
+    
+    // Get username before clearing
+    let username = sessionStorage.getItem('username');
+    
+    try {
+        const res = await fetch(logout_url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: 'same-origin'  // Important: ensures cookies are sent/received
+        });
 
-    const json = await res.json();
-    if (json) {
-        // Clear session storage and reload page
-        let username = sessionStorage.getItem('username');
+        if (!res.ok) {
+            throw new Error('Logout failed');
+        }
+
+        const json = await res.json();
+        
+        // Clear session storage
         sessionStorage.removeItem('username');
-        window.location.href = window.location.origin;
-        window.location.reload();
-        // Notify user of logout
-        alert("Logging out "+username+"...") 
-    }
-    else {
-        alert("The user could not be logged out.")
+        
+        // Show alert
+        alert("Logging out " + username + "...");
+        
+        // Force a full page reload to clear any cached state
+        window.location.replace(window.location.origin);
+        
+    } catch (error) {
+        console.error("Logout error:", error);
+        alert("The user could not be logged out.");
     }
 };
 
@@ -34,13 +48,13 @@ let checkSession = ()=>{
   if (curr_user && curr_user !== "") {
     document.getElementById("loginlogout").innerHTML = 
     '<span class="homepage_links">' + curr_user +'</span>' +
-    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
+    '<a class="homepage_links" onclick="logout()" href="javascript:void(0)">Logout</a>'
   } else {
     document.getElementById("loginlogout").innerHTML = 
     '<a class="homepage_links" href="/login">Login</a>'+
     '<a class="homepage_links"  href="/register">Register</a>'
   }
- }
+}
 </script>
 </head>
 <body onload="checkSession()">
