@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import "./Dealers.css";
 import "../assets/style.css";
 import Header from '../Header/Header';
@@ -14,37 +14,33 @@ const Dealers = () => {
   
   let dealer_url_by_state = "/djangoapp/get_dealers/";
  
-  const filterDealers = async (state) => {
-    dealer_url_by_state = dealer_url_by_state+state;
-    const res = await fetch(dealer_url_by_state, {
-      method: "GET"
-    });
+  const filterDealers = useCallback(async (state) => {
+    const url = dealer_url_by_state + state;
+    const res = await fetch(url, { method: "GET" });
     const retobj = await res.json();
-    if(retobj.status === 200) {
-      let state_dealers = Array.from(retobj.dealers)
-      setDealersList(state_dealers)
+    if (retobj.status === 200) {
+      let state_dealers = Array.from(retobj.dealers);
+      setDealersList(state_dealers);
     }
-  }
+  }, [dealer_url_by_state]);
 
-  const get_dealers = async ()=>{
-    const res = await fetch(dealer_url, {
-      method: "GET"
-    });
+  const get_dealers = useCallback(async () => {
+    const res = await fetch(dealer_url, { method: "GET" });
     const retobj = await res.json();
-    if(retobj.status === 200) {
-      let all_dealers = Array.from(retobj.dealers)
+    if (retobj.status === 200) {
+      let all_dealers = Array.from(retobj.dealers);
       let states = [];
-      all_dealers.forEach((dealer)=>{
-        states.push(dealer.state)
+      all_dealers.forEach((dealer) => {
+        states.push(dealer.state);
       });
-
-      setStates(Array.from(new Set(states)))
-      setDealersList(all_dealers)
+      setStates(Array.from(new Set(states)));
+      setDealersList(all_dealers);
     }
-  }
+  }, [dealer_url]);
+
   useEffect(() => {
     get_dealers();
-  },[]);  
+  },[get_dealers]);  
 
 
 let isLoggedIn = sessionStorage.getItem("username") != null ? true : false;
