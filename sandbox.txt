@@ -1,0 +1,22 @@
+to build Docker to communicate with Mongo DB:
+    nav to server/database
+    build the Docker app:
+        docker build . -t nodeapp 
+    run the Docker server:
+        docker-compose up
+    launch Mongoose API backend app at port 3030
+    nav to djangoapp/.env
+        replace URL with URL of backend app (WITHOUT trailing slash)
+    in IDE, nav toolbox --> Code Engine
+        create project, launch Code Engine CLI when ready
+    in Code Engine CLI:
+        nav to server/djangoapp/microservices
+        build the sent_analyzer app:
+            docker build . -t us.icr.io/${SN_ICR_NAMESPACE}/senti_analyzer
+        push the Docker image:
+            docker push us.icr.io/${SN_ICR_NAMESPACE}/senti_analyzer
+        deploy the sent_analyzer app:
+            ibmcloud ce application create --name sentianalyzer --image us.icr.io/${SN_ICR_NAMESPACE}/senti_analyzer --registry-secret icr-secret --port 5000
+        in djangoapp/.env:
+            update URL of sent_analyzer (WITH TRAILING SLASH)
+        
