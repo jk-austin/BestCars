@@ -10,20 +10,22 @@ sentiment_analyzer_url = os.getenv(
     'sentiment_analyzer_url',
     default="http://localhost:5050/")
 
+
 def get_request(endpoint, **kwargs):
     params = ""
-    if(kwargs):
-        for key,value in kwargs.items():
-            params=params+key+"="+value+"&"
+    if (kwargs):
+        for key, value in kwargs.items():
+            params=params+key+"="+value+" & "
     request_url = backend_url+endpoint+"?"+params
     print("GET from {} ".format(request_url))
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
         return response.json()
-    except:
+    except Exception as e:
         # If any error occurs
-        print("Network exception occurred")
+        print(f"Network exception occurred: {e}")
+
 
 def analyze_review_sentiments(text):
     request_url = sentiment_analyzer_url+"analyze/"+text
@@ -35,14 +37,18 @@ def analyze_review_sentiments(text):
         print(f"Unexpected {err=}, {type(err)=}")
         print("Network exception occurred")
 
+
 # to post a review
 def post_review(data_dict):
-    # Construct the URL for the backend API endpoint by appending "/insert_review" to the base backend_url.
+    # Construct the URL for the backend API endpoint
+    # by appending "/insert_review" to the base backend_url.
     request_url = backend_url+"/insert_review"
     try:
-        # Send an HTTP POST request to request_url with data_dict serialized as JSON in the request body using the requests library.
-        response = requests.post(request_url,json=data_dict)
+        # Send an HTTP POST request to request_url with
+        # data_dict serialized as JSON in the request body
+        # using the requests library.
+        response = requests.post(request_url, json=data_dict)
         print(response.json())
         return response.json()
-    except:
-        print("Network exception occurred")
+    except Exception as e:
+        print(f"Network exception occurred: {e}")
