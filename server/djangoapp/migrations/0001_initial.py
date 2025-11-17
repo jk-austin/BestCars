@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(
                     auto_created=True,
                     primary_key=True,
-                    serialize=False, 
+                    serialize=False,
                     verbose_name='ID'
                 )),
                 ('name', models.CharField(max_length=100)),
@@ -34,8 +34,11 @@ class Migration(migrations.Migration):
                     primary_key=True, serialize=False, verbose_name='ID'
                 )),
                 ('name', models.CharField(max_length=100)),
-                ('type', models.CharField(choices=[('SEDAN', 'Sedan'),
-                ('SUV', 'SUV'), ('WAGON', 'Wagon')], default='SUV', max_length=10)),
+                ('type', models.CharField(choices=[
+                    ('SEDAN', 'Sedan'),
+                    ('SUV', 'SUV'),
+                    ('WAGON', 'Wagon')
+                ], default='SUV', max_length=10)),
                 ('year', models.IntegerField(
                     default=2025,
                     validators=[django.core.validators.MaxValueValidator(2025),
