@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from .models import CarMake, CarModel
@@ -116,7 +115,7 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
 
 
-# get_dealerships to render a list of dealerships; 
+# get_dealerships to render a list of dealerships;
 # all by default, particular state if state is passed
 def get_dealerships(request, state="All"):
     if (state == "All"):
@@ -163,7 +162,7 @@ def add_review(request):
             return JsonResponse({"status": 200, "message": response})
         except Exception as e:
             return JsonResponse(
-                {"status": 401, "message": f"Error in posting review: {str(e)}"}
+                {"status": 401, "message": f"Error in posting: {str(e)}"}
             )
     else:
         return JsonResponse({"status": 403, "message": "Unauthorized"})
