@@ -29,8 +29,8 @@ SECRET_KEY =\
 DEBUG = True
 
 ALLOWED_HOSTS= [
-    'localhost','https://jessekorff-8000.theiadockernext
-    -0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
+    'localhost','https://jessekorff-8000.theiadockernext'
+    '-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai'
 ]
 CSRF_TRUSTED_ORIGINS= [
     'https://jessekorff-8000.theiadockernext
