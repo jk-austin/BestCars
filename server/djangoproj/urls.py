@@ -18,8 +18,14 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.static import serve
+import os
 
 urlpatterns = [
+    path('manifest.json', serve, {'document_root': os.path.join(settings.BASE_DIR, 'frontend/build'), 'path': 'manifest.json'}),
+    path('logo192.png', serve, {'document_root': os.path.join(settings.BASE_DIR, 'frontend/build'), 'path': 'logo192.png'}),
+    path('logo512.png', serve, {'document_root': os.path.join(settings.BASE_DIR, 'frontend/build'), 'path': 'logo512.png'}),
+    path('favicon.ico', serve, {'document_root': os.path.join(settings.BASE_DIR, 'frontend/build'), 'path': 'favicon.ico'}),
     path('admin/', admin.site.urls),
     path('djangoapp/', include('djangoapp.urls')),
     path('', TemplateView.as_view(template_name="Home.html")),
