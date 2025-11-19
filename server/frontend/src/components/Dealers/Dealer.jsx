@@ -28,8 +28,9 @@ const Dealer = () => {
     const res = await fetch(dealer_url, { method: "GET" });
     const retobj = await res.json();
     if (retobj.status === 200) {
-      let dealerobjs = Array.from(retobj.dealer);
-      setDealer(dealerobjs[0]);
+        setDealer(retobj.dealer);
+      // let dealerobjs = Array.from(retobj.dealer); // commented out as part of debugging get_dealer
+      // setDealer(dealerobjs[0]);                      and get_reviews
     }
   }, [dealer_url]);
 

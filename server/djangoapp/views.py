@@ -131,6 +131,7 @@ def get_dealer_details(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
         dealership = get_request(endpoint)
+        print(f"DEBUG: dealership response = {dealership}")  # to debug details not loading in production
         return JsonResponse({"status": 200, "dealer": dealership})
     else:
         return JsonResponse({"status": 400, "message": "Bad Request"})
@@ -142,6 +143,7 @@ def get_dealer_reviews(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchReviews/dealer/"+str(dealer_id)
         reviews = get_request(endpoint)
+        print(f"DEBUG: review response = {reviews}")  # to debug details not loading in production
         for review_detail in reviews:
             response = analyze_review_sentiments(review_detail['review'])
             print(response)
