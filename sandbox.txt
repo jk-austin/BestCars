@@ -31,3 +31,6 @@ Server:
     python3 -m pip install -U -r requirements.txt
     python3 manage.py makemigrations
     python3 manage.py migrate
+
+final URL:
+    https://jessekorff-8000.theiadockernext-1-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/
