@@ -34,8 +34,8 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/jk-austin/BestCars
+cd BestCars
 ```
 
 ### 2. Backend Setup (Django)
@@ -188,7 +188,7 @@ Static files are served from `frontend/build/static/` after running `npm run bui
 
 ## 📝 API Endpoints
 
-- `POST /djangoapp/login/` - User authentication
+  - `POST /djangoapp/login/` - User authentication
   - Request body: `{"userName": "string", "password": "string"}`
   - Response: `{"status": "Authenticated", "userName": "string"}`
 
@@ -207,21 +207,13 @@ Static files are served from `frontend/build/static/` after running `npm run bui
 - Ensure React build completed successfully
 - Verify React Router configuration matches Django URL patterns
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit your changes: `git commit -m 'Add feature'`
-4. Push to the branch: `git push origin feature-name`
-5. Open a pull request
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 👤 Author
 
-Your Name - [Your GitHub Profile](https://github.com/yourusername)
+Jesse Korff - https://github.com/jk-austin
 
 ## 🙏 Acknowledgments
 
